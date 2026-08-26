@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WilliamGames</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="globalMessage" class="global-message hidden"></div>
+
+  <header class="topbar">
+    <div>
+      <h1>WILLIAM<span>GAMES</span></h1>
+      <p>★ THE PIXEL ARCADE ★</p>
+    </div>
+    <button id="adminOpenBtn" class="pixel-btn small">⚙ ADMIN</button>
+  </header>
+
+  <main>
+    <section id="homeScreen" class="screen active">
+      <div class="hero">
+        <div class="star">★</div>
+        <h2>SELECT YOUR GAME</h2>
+        <p>INSERT SKILL TO PLAY</p>
+      </div>
+
+      <div class="game-grid">
+        <button class="game-card" data-game="snake">
+          <div class="game-icon">🐍</div>
+          <h3>SNAKE</h3>
+          <p>Eat. Grow. Survive.</p>
+          <span>PLAY</span>
+        </button>
+
+        <button class="game-card" data-game="reaction">
+          <div class="game-icon">⚡</div>
+          <h3>REACTION</h3>
+          <p>How fast are you?</p>
+          <span>PLAY</span>
+        </button>
+
+        <button class="game-card" data-game="memory">
+          <div class="game-icon">🧠</div>
+          <h3>MEMORY</h3>
+          <p>Match the pairs.</p>
+          <span>PLAY</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="snakeGame" class="screen">
+      <div class="game-header">
+        <button class="back-btn" data-back>← BACK</button>
+        <h2>🐍 SNAKE</h2>
+        <div class="score-box">SCORE: <span id="snakeScore">0</span></div>
+      </div>
+
+      <div id="snakeEventBanner" class="event-banner hidden">⚠ SNAKE CORRUPTION ACTIVE ⚠</div>
+
+      <div class="canvas-wrap">
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+      </div>
+
+      <p id="snakeStatus" class="game-status">PRESS START</p>
+      <div class="controls">
+        <button id="snakeStart" class="pixel-btn">START GAME</button>
+      </div>
+
+      <div class="dpad">
+        <button data-dir="up">▲</button>
+        <div>
+          <button data-dir="left">◀</button>
+          <button data-dir="down">▼</button>
+          <button data-dir="right">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="reactionGame" class="screen">
+      <div class="game-header">
+        <button class="back-btn" data-back>← BACK</button>
+        <h2>⚡ REACTION TEST</h2>
+        <div class="score-box">BEST: <span id="reactionBest">--</span></div>
+      </div>
+
+      <div id="reactionBox" class="reaction-box">
+        <div id="reactionText"><strong>REACTION TIME</strong><br><br>CLICK TO START</div>
+      </div>
+
+      <p class="reaction-results">LAST: <span id="reactionLast">--</span> ms</p>
+    </section>
+
+    <section id="memoryGame" class="screen">
+      <div class="game-header">
+        <button class="back-btn" data-back>← BACK</button>
+        <h2>🧠 MEMORY</h2>
+        <div class="score-box">MOVES: <span id="memoryMoves">0</span></div>
+      </div>
+
+      <div id="memoryEventBanner" class="event-banner hidden">⚠ MEMORY SNAP ACTIVE ⚠</div>
+      <div id="memoryBoard" class="memory-board"></div>
+      <p id="memoryStatus" class="game-status">MATCH ALL PAIRS</p>
+      <button id="memoryStart" class="pixel-btn">NEW GAME</button>
+    </section>
+  </main>
+
+  <div id="adminLogin" class="modal hidden">
+    <div class="modal-box">
+      <button class="modal-close" data-close="adminLogin">X</button>
+      <h2>⚙ ADMIN ACCESS</h2>
+      <p>ENTER SECURITY PIN</p>
+      <input id="adminPin" type="password" maxlength="4" inputmode="numeric" placeholder="ENTER PIN">
+      <p id="pinError" class="error-text"></p>
+      <button id="adminLoginBtn" class="pixel-btn">ENTER</button>
+    </div>
+  </div>
+
+  <div id="adminPanel" class="modal hidden">
+    <div class="admin-box">
+      <button class="modal-close" data-close="adminPanel">X</button>
+      <div class="admin-header">
+        <h2>⚙ ADMIN PANEL</h2>
+        <p>WILLIAMGAMES CONTROL CENTER</p>
+      </div>
+
+      <div class="admin-section">
+        <h3>📢 GLOBAL MESSAGE</h3>
+        <input id="globalMessageInput" type="text" maxlength="150" placeholder="MESSAGE FOR ALL PLAYERS">
+        <div class="admin-actions">
+          <button id="sendMessageBtn" class="pixel-btn">SEND GLOBAL</button>
+          <button id="clearMessageBtn" class="pixel-btn danger">CLEAR</button>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h3>🎮 GAME EVENTS</h3>
+
+        <div class="event-control">
+          <div>
+            <strong>🐍 SNAKE CORRUPTION</strong>
+            <p>Make Snake glitch and behave unpredictably.</p>
+          </div>
+          <button id="snakeCorruptionBtn" class="toggle-btn">OFF</button>
+        </div>
+
+        <div class="event-control">
+          <div>
+            <strong>🧠 MEMORY SNAP</strong>
+            <p>Switch unmatched card symbols every 5 seconds.</p>
+          </div>
+          <button id="memorySnapBtn" class="toggle-btn">OFF</button>
+        </div>
+      </div>
+
+      <div class="status-section">
+        <p>SNAKE CORRUPTION: <span id="snakeEventStatus">OFF</span></p>
+        <p>MEMORY SNAP: <span id="memoryEventStatus">OFF</span></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2026 WILLIAMGAMES // INSERT COIN ★</footer>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
